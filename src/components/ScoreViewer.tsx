@@ -33,6 +33,10 @@ export const ScoreViewer: React.FC<ScoreViewerProps> = ({
   const canvasWrapperRef = useRef<HTMLDivElement>(null);
   const osmdRef = useRef<OpenSheetMusicDisplay | null>(null);
   const activeHighlightedSvgRef = useRef<SVGElement | null>(null);
+  const highlightedShapesRef = useRef<Array<{
+    element: SVGElement;
+    originalStyle: string | null;
+  }>>([]);
   
   const [zoom, setZoom] = useState<number>(1.0);
   const [loading, setLoading] = useState<boolean>(false);
@@ -41,6 +45,15 @@ export const ScoreViewer: React.FC<ScoreViewerProps> = ({
 
   // Clear all existing SVG highlights from container
   const clearPreviousHighlights = () => {
+    // Restore the original inline styles of previously highlighted shapes.
+    highlightedShapesRef.current.forEach(({ element, originalStyle }) => {
+      if (originalStyle === null) {
+        element.removeAttribute('style');
+      } else {
+        element.setAttribute('style', originalStyle);
+      }
+    });
+    highlightedShapesRef.current = [];
     if (activeHighlightedSvgRef.current) {
       try {
         activeHighlightedSvgRef.current.style.stroke = '';
@@ -131,16 +144,33 @@ export const ScoreViewer: React.FC<ScoreViewerProps> = ({
 
       // 2. Run GraphicSheet note target mapping via modular utility
       const result = findOsmdGraphicalNoteTarget(osmdRef.current, selectedAnchor, selectedMelodyPitch);
+      if (selectedAnchor.anchorIndex === 17) {
+        console.log('[FOCUS #17]', {
+          finalConfidence: result.finalConfidence,
+          svgElementFound: result.runtimeInspector?.svgElementFound,
+          positionAndShapeFound: result.runtimeInspector?.positionAndShapeFound,
+          highlightTarget: result.highlightTarget,
+          svgTag: result.svgElementObj?.tagName,
+          svgConnected: result.svgElementObj?.isConnected
+        });
+      }
 
-      // 3. Highlight SVG target element if found
+      // 3. Highlight the actual SVG shapes inside the note group.
       if (result.svgElementObj) {
-        try {
-          result.svgElementObj.style.stroke = '#3b82f6';
-          result.svgElementObj.style.strokeWidth = '3px';
-          result.svgElementObj.style.fill = '#60a5fa';
-          result.svgElementObj.setAttribute('data-osmd-highlight', 'true');
-          activeHighlightedSvgRef.current = result.svgElementObj;
-        } catch (e) {}
+        const shapes = result.svgElementObj.querySelectorAll<SVGElement>('path, ellipse');
+
+        shapes.forEach((shape) => {
+          highlightedShapesRef.current.push({
+            element: shape,
+            originalStyle: shape.getAttribute('style')
+          });
+
+          shape.style.setProperty('fill', '#3b82f6', 'important');
+          shape.style.setProperty('stroke', '#3b82f6', 'important');
+        });
+
+        result.svgElementObj.setAttribute('data-osmd-highlight', 'true');
+        activeHighlightedSvgRef.current = result.svgElementObj;
       }
 
       // 4. Auto-scroll canvas container to measure text / note position

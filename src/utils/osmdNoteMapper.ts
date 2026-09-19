@@ -1,4 +1,4 @@
-﻿import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay';
+import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay';
 import type { 
   LyricNoteAnchor, 
   VisualTargetConfidence, 
@@ -382,7 +382,7 @@ export function findOsmdGraphicalNoteTarget(
         finalConfidence = 'EXACT';
       } else if (positionAndShapeFound) {
         highlightTarget = `PositionAndShape (${positionAndShape})`;
-        finalConfidence = 'EXACT';
+        finalConfidence = 'APPROXIMATE';
       } else {
         highlightTarget = 'Chord StaffEntry (GraphicalNote isolated, rendered position unverified)';
         finalConfidence = 'APPROXIMATE';
