@@ -1,0 +1,103 @@
+/* Amharic Hymn Studio - Desktop DAW / Score Editor Theme */
+
+:root {
+  --bg-app: #0f172a;           /* Slate 900 */
+  --bg-sidebar: #1e293b;       /* Slate 800 */
+  --bg-panel: #1e293b;         /* Slate 800 */
+  --bg-card: #334155;          /* Slate 700 */
+  --bg-hover: #475569;         /* Slate 600 */
+  --bg-input: #0f172a;         /* Slate 900 */
+  
+  --text-main: #f8fafc;        /* Slate 50 */
+  --text-muted: #94a3b8;       /* Slate 400 */
+  --text-dim: #64748b;         /* Slate 500 */
+  
+  --accent-primary: #3b82f6;   /* Blue 500 */
+  --accent-primary-hover: #2563eb;
+  --accent-success: #10b981;   /* Emerald 500 */
+  --accent-warning: #f59e0b;   /* Amber 500 */
+  --accent-amharic: #8b5cf6;   /* Purple 500 */
+  
+  --border-color: #334155;     /* Slate 700 */
+  --border-light: #475569;     /* Slate 600 */
+  
+  --font-family-base: 'Inter', 'Noto Sans KR', 'Noto Sans Ethiopic', system-ui, -apple-system, sans-serif;
+  --font-family-amharic: 'Noto Sans Ethiopic', 'Inter', sans-serif;
+  --font-family-korean: 'Noto Sans KR', 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  font-family: var(--font-family-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Custom Scrollbar for DAW Feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-app);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-card);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--bg-hover);
+}
+
+/* Status Badge Classes */
+.badge-draft {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+.badge-translated {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+.badge-adapted {
+  background-color: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+  border: 1px solid rgba(139, 92, 246, 0.4);
+}
+.badge-aligned {
+  background-color: rgba(14, 165, 233, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(14, 165, 233, 0.4);
+}
+.badge-reviewed {
+  background-color: rgba(236, 72, 153, 0.15);
+  color: #f472b6;
+  border: 1px solid rgba(236, 72, 153, 0.4);
+}
+.badge-approved {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
