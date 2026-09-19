@@ -153,7 +153,7 @@ export const SyllableAlignmentEditor: React.FC<SyllableAlignmentEditorProps> = (
 
   // Batch Inspection Callback (#1~#64)
   const handleBatchInspectionEvaluated = (results: Record<string, AnchorDiagnosticInfo>) => {
-    setRuntimeMappingResults(prev => ({ ...prev, ...results }));
+    setRuntimeMappingResults(results);
     
     const updatedConf: Record<string, VisualTargetConfidence> = {};
     Object.keys(results).forEach(aId => {

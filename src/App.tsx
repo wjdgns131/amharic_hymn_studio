@@ -11,6 +11,7 @@ import { SyllableAlignmentEditor } from './components/SyllableAlignmentEditor';
 import { NativeReviewEditor } from './components/NativeReviewEditor';
 import { LiteralTranslationEditor } from './components/LiteralTranslationEditor';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { exportProjectBackup } from './utils/projectBackup';
 import './index.css';
 
 const LOCAL_STORAGE_OMR_KEY = 'amharic_hymn_omr_metadata';
@@ -629,9 +630,10 @@ const handleSaveLiteralTranslations = (updatedTranslations: LiteralTranslationLi
               Export
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
-              <button className="sidebar-btn" onClick={() => alert('Export functionality will be enabled in Step 3')}>📄 Amharic Score</button>
-              <button className="sidebar-btn" onClick={() => alert('Export functionality will be enabled in Step 3')}>📑 Bilingual Score</button>
-              <button className="sidebar-btn" onClick={() => alert('Export functionality will be enabled in Step 3')}>🎵 MusicXML</button>
+              <button className="sidebar-btn" onClick={() => exportProjectBackup(project)}>Project Backup (.json)</button>
+            <button className="sidebar-btn" onClick={() => alert('Export functionality will be enabled in Step 3')}>📄 Amharic Score</button>
+            <button className="sidebar-btn" onClick={() => alert('Export functionality will be enabled in Step 3')}>📑 Bilingual Score</button>
+            <button className="sidebar-btn" onClick={() => alert('Export functionality will be enabled in Step 3')}>🎵 MusicXML</button>
             </div>
           </div>
 
